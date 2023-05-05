@@ -1,7 +1,7 @@
 #!/bin/bash
 
-SCRIPT_PREFIX="rvm"
-OS=docker
+SCRIPT_PREFIX="kitchen"
+OS=rvm
 STORAGE_PATH="/data/lxd/"${SCRIPT_PREFIX}
 IP="10.120.11"
 IFACE="eth0"
