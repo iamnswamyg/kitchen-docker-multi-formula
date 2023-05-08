@@ -1,3 +1,2 @@
-# kitchen-salt-lxd
-# kitchen-salt-test-env
 # salt-wordpress-lxd-kitchen
+SaltStack infrastructure testing using Kitchen-Salt
