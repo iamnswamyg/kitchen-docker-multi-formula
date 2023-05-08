@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SCRIPT_PREFIX="kitchen"
-OS=rvm
+OS=${SCRIPT_PREFIX}
 STORAGE_PATH="/data/lxd/"${SCRIPT_PREFIX}
 IP="10.120.11"
 IFACE="eth0"
@@ -9,7 +9,7 @@ IP_SUBNET=${IP}".1/24"
 POOL=${SCRIPT_PREFIX}"-pool"
 SCRIPT_PROFILE_NAME=${SCRIPT_PREFIX}"-profile"
 SCRIPT_BRIDGE_NAME=${SCRIPT_PREFIX}"-br"
-NAME=${SCRIPT_PREFIX}
+NAME=${SCRIPT_PREFIX}"-test"
 IMAGE=${OS}
 
 
@@ -65,10 +65,7 @@ lxc config set ${NAME} security.nesting=true security.syscalls.intercept.mknod=t
 sudo lxc exec ${NAME} -- /bin/bash /lxd/${NAME}.sh
 # adding workspace
 sudo lxc config device add ${NAME} ${NAME}-worskspace-share disk source=${PWD}/workspace path=/home/ubuntu/workspace
-#save container as image
-lxc stop ${NAME}
-lxc publish ${NAME} --alias ${NAME} 
-lxc start ${NAME}
+
 
 
 
