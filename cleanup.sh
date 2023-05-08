@@ -1,7 +1,7 @@
 
 #!/bin/bash
 
-SCRIPT_PREFIX="kitchen"
+SCRIPT_PREFIX="wordpress"
 STORAGE_PATH="/data/lxd/"${SCRIPT_PREFIX}
 # Get the list of running containers
 containers=$(lxc list -c ns --format=json | jq -r '.[] | .name')

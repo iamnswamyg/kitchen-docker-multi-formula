@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SCRIPT_PREFIX="kitchen"
+SCRIPT_PREFIX="wordpress"
 OS=${SCRIPT_PREFIX}
 STORAGE_PATH="/data/lxd/"${SCRIPT_PREFIX}
 IP="10.120.11"
@@ -10,9 +10,20 @@ POOL=${SCRIPT_PREFIX}"-pool"
 SCRIPT_PROFILE_NAME=${SCRIPT_PREFIX}"-profile"
 SCRIPT_BRIDGE_NAME=${SCRIPT_PREFIX}"-br"
 NAME=${SCRIPT_PREFIX}"-test"
-IMAGE=${OS}
+IMAGE="kitchen"
 
+UID= echo uid=$(id -u) | awk -F= '{print $2}'
 
+if ! [[ $(cat /etc/subuid /etc/subgid | grep -o -i root | wc -l) -eq 2 ]]; then
+    echo "root:${UID}:1" | sudo tee -a /etc/subuid /etc/subgid
+else
+  if ! [[ $(cat /etc/subuid | grep -o -i root | wc -l) -eq 1 ]]; then
+    echo "root:${UID}:1" | sudo tee -a /etc/subuid
+  fi
+  if ! [[ $(cat /etc/subgid | grep -o -i root | wc -l) -eq 1 ]]; then
+    echo "root:${UID}:1" | sudo tee -a /etc/subgid
+  fi
+fi
 
 # check if jq exists
 if ! snap list | grep jq >>/dev/null 2>&1; then
@@ -55,6 +66,8 @@ name: ${SCRIPT_PROFILE_NAME}" | lxc profile edit ${SCRIPT_PROFILE_NAME}
 lxc init ${IMAGE} ${NAME} --profile ${SCRIPT_PROFILE_NAME}
 lxc network attach ${SCRIPT_BRIDGE_NAME} ${NAME} ${IFACE}
 lxc config device set ${NAME} ${IFACE} ipv4.address ${IP}.2
+lxc config set ${NAME} raw.idmap "both ${UID} ${UID}"
+lxc config device add ${NAME} homedir disk source=/home/${USER} path=/home/ubuntu
 lxc start ${NAME} 
 
 lxc storage volume create ${POOL} ${NAME}
