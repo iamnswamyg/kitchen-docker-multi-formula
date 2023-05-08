@@ -1,5 +1,7 @@
 #!/bin/bash
 
+mkdir -p /home/ubuntu/workspace
+cd /home/ubuntu/workspace
 echo "#Gemfile
 source 'https://rubygems.org'
 

@@ -63,6 +63,8 @@ sudo lxc config device add ${NAME} ${NAME}-script-share disk source=${PWD}/scrip
 lxc config set ${NAME} security.nesting=true security.syscalls.intercept.mknod=true security.syscalls.intercept.setxattr=true
 
 sudo lxc exec ${NAME} -- /bin/bash /lxd/${NAME}.sh
+# adding workspace
+sudo lxc config device add ${NAME} ${NAME}-worskspace-share disk source=${PWD}/workspace path=/home/ubuntu/workspace
 #save container as image
 lxc stop ${NAME}
 lxc publish ${NAME} --alias ${NAME} 
