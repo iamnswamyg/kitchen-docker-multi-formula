@@ -20,6 +20,7 @@ hugo_site_repo:
     - require:
       - pkg: git_pkg
       - user: hugo_user
+      - cmd: hugo-download
 
 nginx_default:
   file.absent:
