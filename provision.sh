@@ -77,7 +77,7 @@ lxc config set ${NAME} security.nesting=true security.syscalls.intercept.mknod=t
 
 sudo lxc exec ${NAME} -- /bin/bash /lxd/${NAME}.sh
 # adding workspace
-sudo lxc config device add ${NAME} ${NAME}-worskspace-share disk source=${PWD}/workspace path=/home/ubuntu/workspace
+
 
 
 
