@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SCRIPT_PREFIX="wordpress"
+SCRIPT_PREFIX="sample"
 OS=${SCRIPT_PREFIX}
 STORAGE_PATH="/data/lxd/"${SCRIPT_PREFIX}
 IP="10.120.11"

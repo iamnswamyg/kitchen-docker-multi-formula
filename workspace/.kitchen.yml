@@ -18,7 +18,7 @@ provisioner:
   #log_level: debug
   salt_install: none
   require_chef: false
-  formula: hugo
+  formula: sample
   salt_copy_filter:
     - .git
     - .kitchen
@@ -27,45 +27,50 @@ provisioner:
 
 platforms:
   - name: ubuntu-22.04
-    driver:
+    driver_config:
       image: ubuntu2204_salt_minion
       platform: ubuntu
+      hostname: ubuntu2204.local
       container_name: u2204
       instance_name: u2204
-      image_name: kitImage-ubuntu2204:latest
-  # - name: ubuntu-20.04
-  #   driver_config:
-  #     image: ubuntu2004_salt_minion
-  #     platform: ubuntu
-  #     container_name: u2004
-  #     instance_name: u2004
-  # - name: ubuntu-18.04
-  #   driver_config:
-  #     image: ubuntu1804_salt_minion
-  #     platform: ubuntu
-  #     container_name: u1804
-  #     instance_name: u1804
-  # - name: ubuntu-14.04
-  #   driver_config:
-  #     image: ubuntu1404_salt_minion
-  #     platform: ubuntu
-  #     container_name: u1404
-  #     instance_name: u1404
+  - name: ubuntu-20.04
+    driver_config:
+      image: ubuntu2004_salt_minion
+      platform: ubuntu
+      hostname: ubuntu2004.local
+      container_name: u2004
+      instance_name: u2004
+  - name: ubuntu-18.04
+    driver_config:
+      image: ubuntu1804_salt_minion
+      platform: ubuntu
+      hostname: ubuntu1804.local
+      container_name: u1804
+      instance_name: u1804
+  - name: ubuntu-14.04
+    driver_config:
+      image: ubuntu1404_salt_minion
+      platform: ubuntu
+      hostname: ubuntu1404.local
+      container_name: u1404
+      instance_name: u1404
 
 suites:
-  - name: hugo
+  - name: sample
     provisioner:
       state_top:
         base:
           '*':
-            - hugo
+            - sample
       pillars:
         top.sls:
           base:
             '*':
-              - hugo
-      pillars_from_files:
-        hugo.sls: pillars/hugo.sls
+              - sample
+      # pillars_from_files:
+      #   sample.sls: pillars/sample.sls
+      pillars_from_directories:
+      - pillars
     verifier:
       name: shell
       remote_exec: false
