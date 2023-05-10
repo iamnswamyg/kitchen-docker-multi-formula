@@ -32,6 +32,7 @@ platforms:
       platform: ubuntu
       container_name: u2204
       instance_name: u2204
+      image_name: kitImage-ubuntu2204:latest
   # - name: ubuntu-20.04
   #   driver_config:
   #     image: ubuntu2004_salt_minion
