@@ -1,4 +1,4 @@
-sample_data:
+aformula:
   family: os_family
   architecture: cpuarch
   name: id

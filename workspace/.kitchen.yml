@@ -18,13 +18,19 @@ provisioner:
   #log_level: debug
   salt_install: none
   require_chef: false
-  #is_file_root: true
-  formula: salt-root
+  is_file_root: true
   salt_copy_filter:
     - .git
     - .kitchen
+    - Gemfile
     - Gemfile.lock
     - pytests_cache
+    - docker-scripts
+    - script.sh
+    - requirements.txt
+    - LICENSE
+    - .kitchen.yml
+    - README.md
 
 platforms:
   - name: ubuntu-22.04
@@ -62,14 +68,14 @@ suites:
       state_top:
         base:
           '*':
-            - salt-root.sample
+            - aformula
+            - bformula
       pillars:
         top.sls:
           base:
             '*':
-              - sample
-      # pillars_from_files:
-      #   sample.sls: pillars/sample.sls
+              - aformula
+              - bformula
       pillars_from_directories:
       - pillars
     verifier:
