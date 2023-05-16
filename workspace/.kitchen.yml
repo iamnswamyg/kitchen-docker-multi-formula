@@ -18,7 +18,8 @@ provisioner:
   #log_level: debug
   salt_install: none
   require_chef: false
-  formula: sample
+  #is_file_root: true
+  formula: salt-root
   salt_copy_filter:
     - .git
     - .kitchen
@@ -33,27 +34,27 @@ platforms:
       hostname: ubuntu2204.local
       container_name: u2204
       instance_name: u2204
-  - name: ubuntu-20.04
-    driver_config:
-      image: ubuntu2004_salt_minion
-      platform: ubuntu
-      hostname: ubuntu2004.local
-      container_name: u2004
-      instance_name: u2004
-  - name: ubuntu-18.04
-    driver_config:
-      image: ubuntu1804_salt_minion
-      platform: ubuntu
-      hostname: ubuntu1804.local
-      container_name: u1804
-      instance_name: u1804
-  - name: ubuntu-14.04
-    driver_config:
-      image: ubuntu1404_salt_minion
-      platform: ubuntu
-      hostname: ubuntu1404.local
-      container_name: u1404
-      instance_name: u1404
+  # - name: ubuntu-20.04
+  #   driver_config:
+  #     image: ubuntu2004_salt_minion
+  #     platform: ubuntu
+  #     hostname: ubuntu2004.local
+  #     container_name: u2004
+  #     instance_name: u2004
+  # - name: ubuntu-18.04
+  #   driver_config:
+  #     image: ubuntu1804_salt_minion
+  #     platform: ubuntu
+  #     hostname: ubuntu1804.local
+  #     container_name: u1804
+  #     instance_name: u1804
+  # - name: ubuntu-14.04
+  #   driver_config:
+  #     image: ubuntu1404_salt_minion
+  #     platform: ubuntu
+  #     hostname: ubuntu1404.local
+  #     container_name: u1404
+  #     instance_name: u1404
 
 suites:
   - name: sample
@@ -61,7 +62,7 @@ suites:
       state_top:
         base:
           '*':
-            - sample
+            - salt-root.sample
       pillars:
         top.sls:
           base:
